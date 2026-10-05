@@ -14,5 +14,5 @@ def home(request):
         'total_employees': 4,
         'departments_count': 3,
     }
-    return render(request, 'employee/home.html', context)
+    return render(request, 'home.html', context)
 
