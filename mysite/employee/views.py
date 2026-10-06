@@ -1,18 +1,34 @@
 from django.shortcuts import render
+try:
+    from .forms import StudentForm
+except ImportError:
+    from employee.forms import StudentForm
 
-# Create your views here.
 def home(request):
-    context = {
-        'title': 'Employee Management System',
-        'message': 'Welcome to Employee Portal',
-        'employees': [
-            {'id': 101, 'name': 'Alex Johnson', 'role': 'Software Engineer', 'department': 'Engineering', 'status': 'Active'},
-            {'id': 102, 'name': 'Sarah Williams', 'role': 'UI/UX Designer', 'department': 'Design', 'status': 'Active'},
-            {'id': 103, 'name': 'Michael Chen', 'role': 'Project Manager', 'department': 'Operations', 'status': 'On Leave'},
-            {'id': 104, 'name': 'Emily Davis', 'role': 'QA Lead', 'department': 'Quality Assurance', 'status': 'Active'},
-        ],
-        'total_employees': 4,
-        'departments_count': 3,
-    }
-    return render(request, 'home.html', context)
+    return render(request, 'home.html')
 
+def form_demo(request):
+    search_query = None
+
+    # 1. Handling POST Request (Form Submission with Regex Validation)
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            # Data after regex validation passes
+            name = form.cleaned_data['name']
+            phone = form.cleaned_data['phone']
+            return render(request, 'result.html', {
+                'name': name,
+                'phone': phone,
+                'method': 'POST'
+            })
+    else:
+        # 2. Handling GET Request (Empty Form or Query String)
+        form = StudentForm()
+        search_query = request.GET.get('search')  # Demonstrating GET data extraction
+
+    return render(request, 'form.html', {
+        'form': form,
+        'search_query': search_query,
+        'method': request.method
+    })

@@ -19,12 +19,18 @@
     <!-- Top Navigation -->
     <nav class="navbar">
         <div class="brand-container">
-            <div class="logo-icon">E</div>
-            <span class="brand-title">Employee Portal</span>
+            <a href="{% url 'home' %}" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem;">
+                <div class="logo-icon">E</div>
+                <span class="brand-title">Employee Portal</span>
+            </a>
         </div>
-        <div class="user-pill">
-            <span class="user-dot"></span>
-            <span>Django Live</span>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="nav-link nav-link-active">Directory</a>
+            <a href="{% url 'form_demo' %}" class="nav-link">Form Demo (GET &amp; POST)</a>
+            <div class="user-pill">
+                <span class="user-dot"></span>
+                <span>Django Live</span>
+            </div>
         </div>
     </nav>
 
@@ -34,9 +40,9 @@
         <div class="header-card">
             <div>
                 <h1>{{ message|default:"Welcome to Django Employee Portal" }}</h1>
-                <p>Manage workforce details, departments, and employee directory in one place.</p>
+                <p>Manage workforce details, departments, and employee directory with Regex form validation.</p>
             </div>
-            <button class="btn-light" onclick="alert('Add Employee feature connected!')">+ New Employee</button>
+            <a href="{% url 'form_demo' %}" class="btn-light">Form Demo &rarr;</a>
         </div>
 
         <!-- Metrics Overview -->
